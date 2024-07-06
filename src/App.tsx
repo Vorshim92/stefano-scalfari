@@ -5,7 +5,7 @@ function App() {
     <>
       <div>
         <h1>STEFANO SCALFARI</h1>
-        <h2>SITO IN MANUTENZIONE UPDATE TEST</h2>
+        <h2>SITO IN MANUTENZIONE TESTING BRANCH</h2>
       </div>
     </>
   );
