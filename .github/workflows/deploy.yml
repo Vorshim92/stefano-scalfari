@@ -21,4 +21,4 @@ jobs:
             rm -rf stefanoscalfari.it
             git clone https://github.com/Vorshim92/stefanoscalfari.it.git
             cd stefanoscalfari.it
-            ./server_deploy.sh
+            sudo ./server_deploy.sh
