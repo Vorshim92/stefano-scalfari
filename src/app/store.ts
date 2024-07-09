@@ -1,7 +1,20 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { configureStore, ThunkAction, Action, createSlice } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+
+const tempSlice = createSlice({
+  name: "temp",
+  initialState: {},
+  reducers: {},
+});
+
+const rootReducer = combineReducers({
+  temp: tempSlice.reducer,
+
+  // Aggiungi altri reducer qui
+});
 
 export const store = configureStore({
-  reducer: {},
+  reducer: rootReducer,
 });
 
 export type AppDispatch = typeof store.dispatch;
