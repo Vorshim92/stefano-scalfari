@@ -45,7 +45,7 @@ function App() {
 
   useEffect(() => {
     // Fetch iniziale del contatore dal server
-    fetch("http://stefanoscalfari.it:3001/counter")
+    fetch("/api/counter")
       .then((response) => response.json())
       .then((data) => {
         dispatch(setSteps(data.counter));
