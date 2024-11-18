@@ -26,4 +26,8 @@ sudo systemctl restart apache2
 
 echo "Application deployed!"
 
+cd /var/www/counter-server
+npm install express cors
+chown -R www-data:www-data /var/www/counter-server
+pm2 start /var/www/counter-server/server.js --name "counter-server"
 pm2 restart /var/www/counter-server/server.js --name "counter-server"

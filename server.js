@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Percorso al file counter.json fuori dalla cartella del sito
-const counterFile = path.resolve(__dirname, "..", "counter.json");
+const counterFile = path.resolve(".", "counter.json");
 
 // Funzione per leggere il contatore dal file
 function readCounter() {
