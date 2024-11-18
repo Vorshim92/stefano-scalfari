@@ -7,8 +7,8 @@ import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 export function Vorshim({ animation, ...props }) {
   const group = useRef();
-  const { nodes, animations } = useGLTF("/models/Vorshim.glb");
-  const { materials } = useGLTF("/models/Vorshimtexture.glb");
+  const { nodes, animations } = useGLTF("/models/Characters/Vorshim.glb");
+  const { materials } = useGLTF("/models/Characters/Vorshimtexture.glb");
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -67,4 +67,4 @@ export function Vorshim({ animation, ...props }) {
   );
 }
 
-useGLTF.preload("/models/Vorshim.glb");
+useGLTF.preload("/models/Characters/Vorshim.glb");
