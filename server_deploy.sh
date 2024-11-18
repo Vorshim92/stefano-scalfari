@@ -3,6 +3,8 @@ set -e
 
 echo "Deploying application ..."
 
+cp server.js /var/www/counter-server
+
 # Install dependencies
 npm install
 
@@ -23,3 +25,5 @@ chown -R www-data:www-data /var/www/stefanoscalfari
 sudo systemctl restart apache2
 
 echo "Application deployed!"
+
+pm2 restart /var/www/counter-server/server.js --name "counter-server"
