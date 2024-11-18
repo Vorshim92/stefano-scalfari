@@ -1,22 +1,11 @@
-import { configureStore, ThunkAction, Action, createSlice } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
-
-const tempSlice = createSlice({
-  name: "temp",
-  initialState: {},
-  reducers: {},
-});
-
-const rootReducer = combineReducers({
-  temp: tempSlice.reducer,
-
-  // Aggiungi altri reducer qui
-});
+// app/store.ts
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./reducers";
 
 export const store = configureStore({
   reducer: rootReducer,
 });
 
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = (dispatch: AppDispatch, getState: () => RootState) => ReturnType;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

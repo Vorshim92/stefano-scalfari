@@ -6964,4 +6964,26 @@ p {
   height: 100vh;
 }
 
+.counter {
+  font-size: 4rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.counter .steps-number {
+  animation: count 1s ease-in-out;
+  color: #ffd700;
+}
+@keyframes count {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /*# sourceMappingURL=App.css.map */
