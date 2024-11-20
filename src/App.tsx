@@ -1,12 +1,13 @@
 import { Canvas } from "@react-three/fiber";
 import { Vorshim } from "./components/Characters/Vorshim";
 import { OrbitControls, SpotLight, useHelper } from "@react-three/drei";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { useMemo } from "react";
 import { useControls } from "leva";
 import * as THREE from "three";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
-import { incrementSteps, setSteps } from "./app/actions/stepCounterActions";
+import { setSteps } from "./app/actions/stepCounterActions";
+import io from "socket.io-client";
 import "./App.css";
 const PointLights = () => {
   const ref = useRef<THREE.PointLight>(null!) as React.MutableRefObject<THREE.PointLight>;
@@ -41,27 +42,35 @@ const SpotLights = () => {
 
 function App() {
   const dispatch = useAppDispatch();
-  const steps = useAppSelector((state) => state.stepCounter.steps);
+  const steps = useAppSelector((state) => state.stepCounter.steps); // example store with Redux
+  const [views, setViews] = useState(0); // example store with State
 
   useEffect(() => {
-    // Fetch iniziale del contatore dal server
-    fetch("/api/counter")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(setSteps(data.counter));
-      })
-      .catch((error) => {
-        console.error("Errore nel fetch del contatore:", error);
-      });
+    // Connessione al server WebSocket tramite il reverse proxy
+    const socket = io("/", {
+      path: "/socket.io/",
+      secure: true,
+      transports: ["websocket", "polling"], // Trasporto di fallback
+    });
 
-    // Imposta un intervallo per incrementare il contatore ogni secondo
-    const intervalId = setInterval(() => {
-      dispatch(incrementSteps(1));
-    }, 750);
+    // Ascolta gli aggiornamenti del contatore dei passi
+    socket.on("stepCounterUpdate", (data: { stepCounter: number }) => {
+      dispatch(setSteps(data.stepCounter));
+    });
 
-    // Pulisce l'intervallo quando il componente viene smontato
+    // Ascolta gli aggiornamenti del contatore delle visualizzazioni
+    socket.on("viewsCounterUpdate", (data: { viewsCounter: number }) => {
+      setViews(data.viewsCounter);
+    });
+
+    // Gestisci errori di connessione
+    socket.on("connect_error", (error) => {
+      console.error("Errore di connessione Socket.IO:", error);
+    });
+
+    // Pulisce la connessione al WebSocket quando il componente viene smontato
     return () => {
-      clearInterval(intervalId);
+      socket.disconnect();
     };
   }, [dispatch]);
 
@@ -81,7 +90,7 @@ function App() {
             <ambientLight intensity={1} />
             <PointLights />
             {/* <SpotLights /> */}
-            <OrbitControls enablePan={false} enableZoom={false} enableRotate={false} maxPolarAngle={Math.PI / 2} minAzimuthAngle={-Math.PI / 2} maxAzimuthAngle={Math.PI / 2} minDistance={3} maxDistance={10} />
+            <OrbitControls enablePan={false} enableZoom={false} enableRotate={true} maxPolarAngle={Math.PI / 2} minAzimuthAngle={-Math.PI / 2} maxAzimuthAngle={Math.PI / 2} minDistance={3} maxDistance={10} />
             <Vorshim animation="Walk" scale={1.5} position-y={-1} />
           </Canvas>
         </div>
@@ -90,6 +99,9 @@ function App() {
             <h1 className="counter">
               PASSI FATTI: <span className="steps-number">{steps}</span>
             </h1>
+            <h2 className="views">
+              VISUALIZZAZIONI: <span className="views-number">{views}</span>
+            </h2>
           </div>
         </div>
       </div>
