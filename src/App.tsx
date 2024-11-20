@@ -48,13 +48,18 @@ function App() {
     // Connessione al server WebSocket tramite il reverse proxy
     const socket = io("/", {
       path: "/socket.io/",
-      transports: ["websocket"],
       secure: true,
+      transports: ["websocket", "polling"], // Aggiungi "polling" come trasporto di fallback
     });
 
     // Ascolta gli aggiornamenti del contatore
     socket.on("counterUpdate", (data: { counter: number }) => {
       dispatch(setSteps(data.counter));
+    });
+
+    // Gestisci errori di connessione
+    socket.on("connect_error", (error) => {
+      console.error("Errore di connessione Socket.IO:", error);
     });
 
     // Pulisce la connessione al WebSocket quando il componente viene smontato

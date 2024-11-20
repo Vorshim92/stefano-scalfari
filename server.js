@@ -68,12 +68,14 @@ io.on("connection", (socket) => {
   // Invia il contatore attuale al nuovo client
   socket.emit("counterUpdate", { counter: data.baseSteps });
 
+  // Gestisci errori del socket
+  socket.on("error", (error) => {
+    console.error("Errore del socket:", error);
+  });
+
   // Gestisci la disconnessione del client
   socket.on("disconnect", () => {
     console.log("Un client si è disconnesso:", socket.id);
-  });
-  socket.on("error", (error) => {
-    console.error("Errore del socket:", error);
   });
 });
 
@@ -85,6 +87,6 @@ app.get("/counter", (req, res) => {
   res.json({ counter: data.baseSteps });
 });
 
-app.listen(port, () => {
+server.listen(port, "0.0.0.0", () => {
   console.log(`Server in ascolto su http://dominio:${port}`);
 });
