@@ -34,7 +34,7 @@ function readCounter() {
 function writeCounter(data) {
   try {
     fs.writeFileSync(counterFile, JSON.stringify(data));
-    console.log("Contatore salvato nel file:", data);
+    console.log("Contatore salvato nel file counter.json");
   } catch (error) {
     console.error("Errore nella scrittura di counter.json", error);
   }
@@ -71,6 +71,9 @@ io.on("connection", (socket) => {
   // Gestisci la disconnessione del client
   socket.on("disconnect", () => {
     console.log("Un client si è disconnesso:", socket.id);
+  });
+  socket.on("error", (error) => {
+    console.error("Errore del socket:", error);
   });
 });
 

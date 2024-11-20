@@ -46,7 +46,11 @@ function App() {
 
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
-    const socket = io("/", { path: "/socket.io/" });
+    const socket = io("/", {
+      path: "/socket.io/",
+      transports: ["websocket"],
+      secure: true,
+    });
 
     // Ascolta gli aggiornamenti del contatore
     socket.on("counterUpdate", (data: { counter: number }) => {
