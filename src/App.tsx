@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Vorshim } from "./components/Characters/Vorshim";
 import { OrbitControls, SpotLight, useHelper } from "@react-three/drei";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 // import { useMemo } from "react";
 import { useControls } from "leva";
 import * as THREE from "three";
@@ -42,19 +42,25 @@ const SpotLights = () => {
 
 function App() {
   const dispatch = useAppDispatch();
-  const steps = useAppSelector((state) => state.stepCounter.steps);
+  const steps = useAppSelector((state) => state.stepCounter.steps); // example store with Redux
+  const [views, setViews] = useState(0); // example store with State
 
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
     const socket = io("/", {
       path: "/socket.io/",
       secure: true,
-      transports: ["websocket", "polling"], // Aggiungi "polling" come trasporto di fallback
+      transports: ["websocket", "polling"], // Trasporto di fallback
     });
 
-    // Ascolta gli aggiornamenti del contatore
-    socket.on("counterUpdate", (data: { counter: number }) => {
-      dispatch(setSteps(data.counter));
+    // Ascolta gli aggiornamenti del contatore dei passi
+    socket.on("stepCounterUpdate", (data: { stepCounter: number }) => {
+      dispatch(setSteps(data.stepCounter));
+    });
+
+    // Ascolta gli aggiornamenti del contatore delle visualizzazioni
+    socket.on("viewsCounterUpdate", (data: { viewsCounter: number }) => {
+      setViews(data.viewsCounter);
     });
 
     // Gestisci errori di connessione
@@ -84,7 +90,7 @@ function App() {
             <ambientLight intensity={1} />
             <PointLights />
             {/* <SpotLights /> */}
-            <OrbitControls enablePan={false} enableZoom={false} enableRotate={false} maxPolarAngle={Math.PI / 2} minAzimuthAngle={-Math.PI / 2} maxAzimuthAngle={Math.PI / 2} minDistance={3} maxDistance={10} />
+            <OrbitControls enablePan={false} enableZoom={false} enableRotate={true} maxPolarAngle={Math.PI / 2} minAzimuthAngle={-Math.PI / 2} maxAzimuthAngle={Math.PI / 2} minDistance={3} maxDistance={10} />
             <Vorshim animation="Walk" scale={1.5} position-y={-1} />
           </Canvas>
         </div>
@@ -93,6 +99,9 @@ function App() {
             <h1 className="counter">
               PASSI FATTI: <span className="steps-number">{steps}</span>
             </h1>
+            <h2 className="views">
+              VISUALIZZAZIONI: <span className="views-number">{views}</span>
+            </h2>
           </div>
         </div>
       </div>
