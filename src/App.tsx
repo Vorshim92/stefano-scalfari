@@ -6,7 +6,8 @@ import { useEffect, useRef } from "react";
 import { useControls } from "leva";
 import * as THREE from "three";
 import { useAppSelector, useAppDispatch } from "./app/hooks";
-import { incrementSteps, setSteps } from "./app/actions/stepCounterActions";
+import { setSteps } from "./app/actions/stepCounterActions";
+import io from "socket.io-client";
 import "./App.css";
 const PointLights = () => {
   const ref = useRef<THREE.PointLight>(null!) as React.MutableRefObject<THREE.PointLight>;
@@ -44,24 +45,17 @@ function App() {
   const steps = useAppSelector((state) => state.stepCounter.steps);
 
   useEffect(() => {
-    // Fetch iniziale del contatore dal server
-    fetch("/api/counter")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(setSteps(data.counter));
-      })
-      .catch((error) => {
-        console.error("Errore nel fetch del contatore:", error);
-      });
+    // Connessione al server WebSocket tramite il reverse proxy
+    const socket = io("/", { path: "/socket.io/" });
 
-    // Imposta un intervallo per incrementare il contatore ogni secondo
-    const intervalId = setInterval(() => {
-      dispatch(incrementSteps(1));
-    }, 750);
+    // Ascolta gli aggiornamenti del contatore
+    socket.on("counterUpdate", (data: { counter: number }) => {
+      dispatch(setSteps(data.counter));
+    });
 
-    // Pulisce l'intervallo quando il componente viene smontato
+    // Pulisce la connessione al WebSocket quando il componente viene smontato
     return () => {
-      clearInterval(intervalId);
+      socket.disconnect();
     };
   }, [dispatch]);
 
