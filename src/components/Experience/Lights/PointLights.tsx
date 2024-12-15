@@ -12,8 +12,8 @@ const PointLights = () => {
     distance: 3.0,
     decay: 1.5,
     intensity: 3.5,
-    position: { value: [0.53, 1.86, 0.76] },
-    helper: { value: false },
+    position: [0.53, 1.86, 0.76] as [number, number, number],
+    helper: false,
   };
 
   const schema = dev ? init : {};
@@ -24,11 +24,11 @@ const PointLights = () => {
   const distance = dev ? controls.distance : init.distance;
   const decay = dev ? controls.decay : init.decay;
   const intensity = dev ? controls.intensity : init.intensity;
-  const position = dev ? (controls.position as [number, number, number]) : init.position;
+  const position = dev ? controls.position : init.position;
   const helper = dev ? controls.helper : init.helper;
   useHelper(helper ? ref : null, THREE.PointLightHelper, 0.5, "red");
 
-  return <pointLight ref={ref} position={position as [number, number, number]} color={color} distance={distance} decay={decay} intensity={intensity} />;
+  return <pointLight ref={ref} position={position} color={color} distance={distance} decay={decay} intensity={intensity} />;
 };
 
 export default PointLights;
