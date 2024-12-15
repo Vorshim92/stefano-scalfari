@@ -265,8 +265,8 @@ const Experience = () => {
 
         {/* Overlay Testo */}
         <div style={{ position: "absolute", top: "20%", width: "100%", textAlign: "center", color: "#0f0", zIndex: 10 }}>
-          <h1 style={{ fontFamily: "Roboto Mono, monospace", fontSize: "4rem", textShadow: "0 0 10px #0f0" }}>STEFANO SCALFARI</h1>
-          <h2 style={{ fontFamily: "Roboto Mono, monospace", fontSize: "1.5rem", textShadow: "0 0 5px #0f0" }}>INITIALIZING MATRIX...</h2>
+          <h1 className="responsive-heading">STEFANO SCALFARI</h1>
+          <h2 className="responsive-subheading">INITIALIZING MATRIX...</h2>
         </div>
 
         <div
