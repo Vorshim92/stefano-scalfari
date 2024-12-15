@@ -1,0 +1,29 @@
+<svg 
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect width="64" height="64" fill="transparent" />
+
+  <path 
+    d="M32 8C20 8 10 18 10 30C10 39.5 15.7 47.7 23.3 50.7C24.5 50.9 25 50.2 25 49.6V45.7C20.5 46.9 19 43.9 19 43.9C18 41.6 16.5 41 16.5 41C14.5 39.8 16.7 39.8 16.7 39.8C18.9 39.9 20.1 42 20.1 42C21.9 45 25 44.2 26.3 43.7C26.5 42.2 27.1 41 28 40C21.3 39 14.3 36.6 14.3 26C14.3 23.3 15.3 21 17 19.2C16.7 18.5 16 16.2 17.3 13.5C17.3 13.5 19.2 12.8 25 16.5C27.7 15.8 30.5 15.5 33.3 15.5C36.1 15.5 38.9 15.8 41.7 16.5C47.5 12.8 49.4 13.5 49.4 13.5C50.7 16.2 50 18.5 49.7 19.2C51.4 21 52.4 23.3 52.4 26C52.4 36.6 45.3 39 38.7 40C39.6 40.8 40.3 42.3 40.3 44.5V49.6C40.3 50.1 40.8 50.8 42 50.6C49.6 47.6 55.3 39.5 55.3 30C55 18 44 8 32 8Z"
+    stroke="#0f0" 
+    strokeWidth="1.5" 
+    fill="none" 
+  />
+
+  <line x1="20" y1="8" x2="20" y2="56" stroke="#0f0" strokeDasharray="2 2" opacity="0.3"/>
+  <line x1="44" y1="8" x2="44" y2="56" stroke="#0f0" strokeDasharray="2 2" opacity="0.3"/>
+
+  <line x1="14" y1="24" x2="22" y2="24" stroke="#0f0" strokeDasharray="4 2" />
+  <line x1="42" y1="24" x2="50" y2="24" stroke="#0f0" strokeDasharray="4 2" />
+  
+  <line x1="16" y1="32" x2="26" y2="32" stroke="#0f0" strokeDasharray="4 2" />
+  <line x1="38" y1="32" x2="48" y2="32" stroke="#0f0" strokeDasharray="4 2" />
+
+  <line x1="18" y1="40" x2="24" y2="40" stroke="#0f0" strokeDasharray="4 2" />
+  <line x1="40" y1="40" x2="46" y2="40" stroke="#0f0" strokeDasharray="4 2" />
+
+</svg>

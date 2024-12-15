@@ -1,0 +1,51 @@
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Sfondo trasparente -->
+  <rect width="64" height="64" fill="transparent" />
+
+  <!-- Contorno quadrato arrotondato (richiama forma logo LinkedIn) -->
+  <rect
+    x="8"
+    y="8"
+    width="48"
+    height="48"
+    rx="5"
+    ry="5"
+    stroke="#0f0"
+    stroke-width="1.5"
+    fill="none"
+  />
+
+  <!-- Lettera 'i' stilizzata: un punto e una linea sotto -->
+  <circle cx="20" cy="18" r="2" fill="#0f0" />
+  <line x1="20" y1="22" x2="20" y2="40" stroke="#0f0" stroke-width="2"/>
+
+  <!-- Lettera 'n' stilizzata: forma a "hump" stile pixel -->
+  <!-- In pratica, un segmento verticale, poi orizzontale e di nuovo verticale -->
+  <!-- Questo dovrebbe assomigliare ad una 'n' stilizzata in maniera monospaziata -->
+  <path
+    d="M30 40 V32 H40 V40"
+    stroke="#0f0"
+    stroke-width="2"
+    fill="none"
+  />
+
+  <!-- Linee verticali di sfondo a effetto "codice" -->
+  <line x1="16" y1="8" x2="16" y2="56" stroke="#0f0" stroke-dasharray="2 2" opacity="0.3"/>
+  <line x1="48" y1="8" x2="48" y2="56" stroke="#0f0" stroke-dasharray="2 2" opacity="0.3"/>
+
+  <!-- Linee orizzontali stile glitch -->
+  <!-- <line x1="14" y1="24" x2="24" y2="24" stroke="#0f0" stroke-dasharray="4 2" /> -->
+  <line x1="40" y1="24" x2="50" y2="24" stroke="#0f0" stroke-dasharray="4 2" />
+
+  <line x1="25" y1="15" x2="37" y2="15" stroke="#0f0" stroke-dasharray="4 2" />
+  <!-- <line x1="38" y1="32" x2="50" y2="32" stroke="#0f0" stroke-dasharray="4 2" /> -->
+
+  <line x1="14" y1="50" x2="24" y2="50" stroke="#0f0" stroke-dasharray="4 2" />
+  <!-- <line x1="40" y1="40" x2="50" y2="40" stroke="#0f0" stroke-dasharray="4 2" /> -->
+</svg>
