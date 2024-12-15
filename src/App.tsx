@@ -48,7 +48,7 @@ const AudioPlayer = () => {
     soundRef.current = new Howl({
       src: [backgroundMusic],
       loop: true,
-      volume: 0.5,
+      volume: 0.0,
       mute: true, // partiamo in muto, così se l'audio è bloccato non generiamo errori
       onload: () => console.log("Audio loaded"),
       onloaderror: (id, err) => console.log("Load error:", err),
@@ -159,24 +159,16 @@ const AudioPlayer = () => {
 
 const PointLights = () => {
   const ref = useRef<THREE.PointLight>(null!) as React.MutableRefObject<THREE.PointLight>;
+  const dev = process.env.NODE_ENV === "development";
 
-  const { helper, ...lightA } = useControls(
-    "Point Light A",
-    {
-      color: "#dbc2c2",
-      distance: 3.0,
-      decay: 1.5,
-      intensity: 3.5,
-      position: { value: [0.53, 1.86, 0.76] },
-      helper: { value: false },
-    },
-    { collapsed: true }
-  );
+  let helper = false;
+  let lightA = { color: "#dbc2c2", distance: 3.0, decay: 1.5, intensity: 3.5, position: [0.53, 1.86, 0.76] };
 
-  // Qui usiamo il ternario per passare la ref o null
+  useControls("Point Light A", dev ? lightA : {}, { collapsed: true });
+
   useHelper(helper ? ref : null, THREE.PointLightHelper, 0.5, "red");
 
-  return <pointLight ref={ref} position={lightA.position} color={lightA.color} distance={lightA.distance} decay={lightA.decay} intensity={lightA.intensity} />;
+  return <pointLight ref={ref} position={lightA.position as [number, number, number]} color={lightA.color} distance={lightA.distance} decay={lightA.decay} intensity={lightA.intensity} />;
 };
 
 const SpotLights = () => {
@@ -197,18 +189,12 @@ const SpotLights = () => {
 
 const DirectLight = () => {
   const ref = useRef<THREE.DirectionalLight>(null!) as React.MutableRefObject<THREE.DirectionalLight>;
+  const dev = process.env.NODE_ENV === "development";
 
-  const { helper, ...lightC } = useControls(
-    "Directional Light C",
-    {
-      color: "#ffffff",
-      intensity: 8.5,
-      position: { value: [-11.5, 10, 0] },
-      helper: { value: false },
-    },
-    { collapsed: true }
-  );
+  let helper = false;
+  let lightC = { color: "#ffffff", intensity: 8.5, position: [-11.5, 10, 0] as [number, number, number] };
 
+  useControls("Directional Light C", dev ? lightC : {}, { collapsed: true });
   useHelper(helper ? ref : null, THREE.DirectionalLightHelper, 0.5, "red");
 
   return (
