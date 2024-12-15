@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Vorshim } from "./components/Characters/Vorshim";
-import { OrbitControls, SpotLight, useHelper } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
+import { Loader, useProgress, OrbitControls, SpotLight, useHelper } from "@react-three/drei";
+import { useEffect, useRef, useState, Suspense } from "react";
 // import { useMemo } from "react";
 import { useControls } from "leva";
 import * as THREE from "three";
@@ -52,9 +52,11 @@ const AudioPlayer = () => {
       mute: true, // partiamo in muto, così se l'audio è bloccato non generiamo errori
       onload: () => console.log("Audio loaded"),
       onloaderror: (id, err) => console.log("Load error:", err),
-      onplay: (id) => {
-        console.log("Audio playing with id:", id), setIsPlaying(true);
-      },
+      onplay: (id) =>
+        function () {
+          console.log("onplay triggered");
+          setIsPlaying(true);
+        },
       onplayerror: (id, error) => {
         console.log("onplayerror triggered:", error);
       },
@@ -216,7 +218,7 @@ const DirectLight = () => {
   );
 };
 
-function App() {
+const Experience = () => {
   const dispatch = useAppDispatch();
   const steps = useAppSelector((state) => state.stepCounter.steps); // example store with Redux
   const [views, setViews] = useState(0); // example store with State
@@ -252,9 +254,9 @@ function App() {
 
   return (
     <>
-      <MatrixRain />
       <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
         <Canvas shadows camera={{ position: [0.1, 0.1, 0.1] }} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}>
+          {/* <Suspense fallback={null}> */}
           <ambientLight intensity={0.5} />
           <PointLights />
           {/* <SpotLights /> */}
@@ -272,6 +274,7 @@ function App() {
             <planeGeometry args={[10, 10]} />
             <meshStandardMaterial color="white" transparent opacity={0} />
           </mesh>
+          {/* </Suspense> */}
         </Canvas>
 
         {/* Overlay Testo */}
@@ -323,7 +326,21 @@ function App() {
           </div>
         </div>
       </div>
+    </>
+  );
+};
+
+function App() {
+  const { progress } = useProgress();
+
+  return (
+    <>
+      <MatrixRain />
+
       <AudioPlayer />
+      {/* <Loader />
+      {progress === 100 && <Experience />} */}
+      <Experience />
     </>
   );
 }
