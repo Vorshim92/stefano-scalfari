@@ -7061,6 +7061,11 @@ p {
   display: block;
 }
 
+.matrix-glitch {
+  position: relative;
+  animation: glitch 1.5s infinite;
+}
+
 @keyframes glitch {
   0% {
     opacity: 0;
