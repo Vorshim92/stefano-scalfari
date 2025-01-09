@@ -12,9 +12,9 @@ function App() {
       <MatrixRain />
 
       <AudioPlayer />
-      {/* <Loader />
-      {progress === 100 && <Experience />} */}
-      <Experience />
+      <Loader />
+      {progress === 100 && <Experience />}
+      {/* <Experience /> */}
     </>
   );
 }

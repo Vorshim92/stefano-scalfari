@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import "./bootstrap_override.scss";
+$primary-color: #0f0;
+$secondary-color: #ffd700;
+$font-family-main: "Roboto", sans-serif;
 
 html,
 body {
@@ -18,7 +21,7 @@ body {
 
   .steps-number {
     animation: count 1s ease-in-out;
-    color: #ffd700; // Colore oro per il numero dei passi
+    color: $secondary-color; // Colore oro per il numero dei passi
   }
 
   @keyframes count {
@@ -37,14 +40,14 @@ body {
 
 .responsive-heading {
   font-family: "Roboto Mono", monospace;
-  text-shadow: 0 0 10px #0f0;
-  color: #0f0;
+  text-shadow: 0 0 10px $primary-color;
+  color: $primary-color;
 }
 
 .responsive-subheading {
   font-family: "Roboto Mono", monospace;
-  text-shadow: 0 0 5px #0f0;
-  color: #0f0;
+  text-shadow: 0 0 5px $primary-color;
+  color: $primary-color;
 }
 
 /* Stili desktop */
@@ -87,7 +90,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0f0;
+  background: $primary-color;
   opacity: 0;
   z-index: 1;
   pointer-events: none;
@@ -95,11 +98,11 @@ body {
 }
 
 .icon-container:hover::before {
-  animation: glitch 0.3s infinite linear alternate-reverse;
+  animation: glitch 0.25s infinite linear alternate-reverse;
 }
 
 .icon-container:hover::after {
-  animation: glitch2 0.3s infinite linear alternate-reverse;
+  animation: glitch2 0.35s infinite linear alternate-reverse;
 }
 
 .icon-container .hover-icon {

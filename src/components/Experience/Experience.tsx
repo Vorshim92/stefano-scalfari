@@ -13,6 +13,7 @@ import { ReactComponent as MatrixLinkedInIcon } from "../../assets/matrix-linked
 import PointLights from "./Lights/PointLights";
 import SpotLights from "./Lights/SpotLights";
 import DirectLights from "./Lights/DirectLights";
+const dev = process.env.NODE_ENV === "development";
 
 // OVERLAY TEXT COMPONENTS
 const OverlayText = ({ steps, views }: { steps: number; views: number }) => {
@@ -78,9 +79,9 @@ const Experience = () => {
 
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
-    const socket = io("/", {
+    const socket = io(dev ? "http://localhost:3001" : "/", {
       path: "/socket.io/",
-      secure: true,
+      secure: !dev,
       transports: ["websocket", "polling"], // Trasporto di fallback
     });
 

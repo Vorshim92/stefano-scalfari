@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Howl } from "howler";
-import backgroundMusic from "../../assets/background-music.mp3";
+import backgroundMusic from "../../assets/background-music.ogg";
 
 function isAudioLocked(): Promise<boolean> {
   return new Promise((resolve) => {
@@ -27,12 +27,12 @@ const userGestureEvents = ["click", "contextmenu", "auxclick", "dblclick", "mous
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const soundRef = useRef<Howl | null>(null);
-  const [volume, setVolume] = useState(0.1);
+  const [volume, setVolume] = useState(0.8);
 
   useEffect(() => {
     soundRef.current = new Howl({
       src: [backgroundMusic],
-      loop: true,
+      loop: false,
       volume: volume,
       mute: true,
       onload: () => console.log("Audio loaded"),

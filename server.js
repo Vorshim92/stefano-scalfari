@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Percorso al file counter.json fuori dalla cartella del sito
 const counterFile = path.resolve(__dirname, "counter.json");
-
+const writeQueue = [];
 // Funzione per leggere il contatore dal file
 function readCounter() {
   try {
@@ -25,15 +25,13 @@ function readCounter() {
     // Se il file non esiste, inizializzalo
     const initialData = { baseSteps: 0, views: 0, startTime: Date.now() };
     console.log(initialData);
-    writeCounter(initialData);
+    writeCounterAsync(initialData);
     return initialData;
   }
 }
 
 // Inizializza il contatore leggendo dal file
 let data = readCounter();
-
-const writeQueue = [];
 
 function processWriteQueue() {
   if (writeQueue.length === 0) {
@@ -118,7 +116,7 @@ io.on("connection", (socket) => {
 
   // Gestisci la disconnessione del client
   socket.on("disconnect", () => {
-    console.log("Un client si è disconnesso:", socket.id);
+    console.log("Un client si ï¿½ disconnesso:", socket.id);
   });
 });
 
