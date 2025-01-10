@@ -16,7 +16,7 @@ import OverlayText from "./OverlayText";
 import MatrixRain from "../../components/MatrixRain/MatrixRain";
 import AudioPlayer from "../../components/AudioPlayer/AudioPlayer";
 
-const dev = process.env.NODE_ENV === "development";
+// const dev = process.env.NODE_ENV === "development";
 
 const Experience = () => {
   const dispatch = useAppDispatch();
@@ -32,9 +32,10 @@ const Experience = () => {
   }, []);
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
-    const socket = io(dev ? "http://localhost:3001" : "/", {
+    // const socket = io(dev ? "http://localhost:3001" : "/", {
+    const socket = io("/", {
       path: "/socket.io/",
-      secure: !dev,
+      secure: true,
       transports: ["websocket", "polling"], // Trasporto di fallback
     });
 
