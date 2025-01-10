@@ -8,7 +8,7 @@ const path = require("path");
 
 const app = express();
 const port = 3001; // O la porta che preferisci
-const url = "127.0.0.1";
+const url = "stefanoscalfari.it";
 app.use(cors());
 app.use(express.json());
 
@@ -103,7 +103,7 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: `http://${url}:3000`,
+    origin: `http://${url}`,
     methods: ["GET", "POST"],
   },
 });
@@ -132,6 +132,6 @@ io.on("connection", (socket) => {
 // Avvia un timer che incrementa il contatore ogni secondo
 setInterval(() => incrementStepCounter(io), 750);
 
-server.listen(port, url, () => {
-  console.log(`Server in ascolto su http://${url}:${port}`);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`Server in ascolto su http://localhost:${port}`);
 });
