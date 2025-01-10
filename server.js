@@ -12,7 +12,7 @@ const url = "stefanoscalfari.it";
 app.use(cors());
 app.use(express.json());
 
-const usersConnected = 0;
+let usersConnected = 0;
 
 // Percorso al file counter.json fuori dalla cartella del sito
 const counterFile = path.resolve(__dirname, "counter.json");
