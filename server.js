@@ -103,7 +103,7 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: `http://${url}`,
+    origin: `https://${url}`,
     methods: ["GET", "POST"],
   },
 });
