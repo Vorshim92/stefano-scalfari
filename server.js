@@ -8,9 +8,11 @@ const path = require("path");
 
 const app = express();
 const port = 3001; // O la porta che preferisci
-
+const url = "127.0.0.1";
 app.use(cors());
 app.use(express.json());
+
+const usersConnected = 0;
 
 // Percorso al file counter.json fuori dalla cartella del sito
 const counterFile = path.resolve(__dirname, "counter.json");
@@ -44,7 +46,7 @@ function processWriteQueue() {
     if (err) {
       console.error("Errore nella scrittura di counter.json", err);
     } else {
-      console.log("Contatore salvato nel file counter.json");
+      // console.log("Contatore salvato nel file counter.json");
     }
 
     // Processa la prossima scrittura
@@ -91,11 +93,17 @@ function incrementViewsCounter(io) {
   io.emit("viewsCounterUpdate", { viewsCounter: data.views });
 }
 
+function setUsersConnected(io, connection) {
+  usersConnected = usersConnected + connection;
+
+  io.emit("usersConnectedUpdate", { usersConnected: data.usersConnected });
+}
+
 const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: "https://stefanoscalfari.it",
+    origin: `http://${url}:3000`,
     methods: ["GET", "POST"],
   },
 });
@@ -105,7 +113,7 @@ io.on("connection", (socket) => {
 
   // Incrementa il contatore delle views di 1, per la nuova connessione appena aperta
   incrementViewsCounter(io);
-
+  setUsersConnected(io, 1);
   // Invia il contatore attuale al nuovo client
   socket.emit("counterUpdate", { stepCounter: data.baseSteps, viewsCounter: data.views });
 
@@ -117,12 +125,13 @@ io.on("connection", (socket) => {
   // Gestisci la disconnessione del client
   socket.on("disconnect", () => {
     console.log("Un client si � disconnesso:", socket.id);
+    setUsersConnected(io, -1);
   });
 });
 
 // Avvia un timer che incrementa il contatore ogni secondo
 setInterval(() => incrementStepCounter(io), 750);
 
-server.listen(port, "0.0.0.0", () => {
-  console.log(`Server in ascolto su http://dominio:${port}`);
+server.listen(port, url, () => {
+  console.log(`Server in ascolto su http://${url}:${port}`);
 });
