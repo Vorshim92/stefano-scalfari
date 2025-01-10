@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Howl } from "howler";
-import backgroundMusic from "../../assets/background-music.mp3";
+import backgroundMusic from "../../assets/background-music.ogg";
 
 function isAudioLocked(): Promise<boolean> {
   return new Promise((resolve) => {
@@ -25,23 +25,25 @@ function isAudioLocked(): Promise<boolean> {
 const userGestureEvents = ["click", "contextmenu", "auxclick", "dblclick", "mousedown", "mouseup", "pointerup", "touchend", "keydown", "keyup"];
 
 const AudioPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const soundRef = useRef<Howl | null>(null);
-  const [volume, setVolume] = useState(0.1);
+  const [volume, setVolume] = useState(0.8);
 
   useEffect(() => {
-    soundRef.current = new Howl({
-      src: [backgroundMusic],
-      loop: true,
-      volume: volume,
-      mute: true,
-      onload: () => console.log("Audio loaded"),
-      onloaderror: (id, err) => console.log("Load error:", err),
-      onplay: (id) => setIsPlaying(true),
-      onplayerror: (id, error) => {
-        console.log("onplayerror triggered:", error);
-      },
-    });
+    if (!soundRef.current) {
+      soundRef.current = new Howl({
+        src: [backgroundMusic],
+        loop: false,
+        volume: volume,
+        mute: true,
+        onload: () => console.log("Audio loaded"),
+        onloaderror: (id, err) => console.log("Load error:", err),
+        onplay: (id) => setIsPlaying(true),
+        onplayerror: (id, error) => {
+          console.log("onplayerror triggered:", error);
+        },
+      });
+    }
 
     const unlockAudio = () => {
       console.log("User gesture detected, unlocking audio!");
@@ -67,6 +69,9 @@ const AudioPlayer = () => {
         soundRef.current?.play();
       }
     });
+    return () => {
+      soundRef.current?.stop(); // L'importanza di mettere un return a useEffect
+    };
   }, []);
 
   const toggleAudio = () => {

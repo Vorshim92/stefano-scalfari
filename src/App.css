@@ -7046,11 +7046,11 @@ body {
 }
 
 .icon-container:hover::before {
-  animation: glitch 0.3s infinite linear alternate-reverse;
+  animation: glitch 0.25s infinite linear alternate-reverse;
 }
 
 .icon-container:hover::after {
-  animation: glitch2 0.3s infinite linear alternate-reverse;
+  animation: glitch2 0.35s infinite linear alternate-reverse;
 }
 
 .icon-container .hover-icon {
