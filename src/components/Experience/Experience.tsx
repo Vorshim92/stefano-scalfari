@@ -16,26 +16,19 @@ import OverlayText from "./OverlayText";
 import MatrixRain from "../../components/MatrixRain/MatrixRain";
 import AudioPlayer from "../../components/AudioPlayer/AudioPlayer";
 
-// const dev = process.env.NODE_ENV === "development";
+const dev = process.env.NODE_ENV === "development";
 
 const Experience = () => {
   const dispatch = useAppDispatch();
   const [liveUsers, setLiveUsers] = useState(0);
   const steps = useAppSelector((state) => state.stepCounter.steps); // example store with Redux
   const [views, setViews] = useState(0); // example store with State
-  useEffect(() => {
-    console.log("Experience mounted");
 
-    return () => {
-      console.log("Experience unmounted");
-    };
-  }, []);
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
-    // const socket = io(dev ? "http://localhost:3001" : "/", {
-    const socket = io("/", {
+    const socket = io(dev ? "http://localhost:3001" : "https://stefanoscalfari.it:3001", {
       path: "/socket.io/",
-      secure: true,
+      secure: !dev,
       transports: ["websocket", "polling"], // Trasporto di fallback
     });
 
