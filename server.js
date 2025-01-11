@@ -8,7 +8,7 @@ const path = require("path");
 
 const app = express();
 const port = 3001; // O la porta che preferisci
-const url = "127.0.0.1";
+const url = "stefanoscalfari.it";
 app.use(cors());
 app.use(express.json());
 
@@ -103,7 +103,7 @@ const server = http.createServer(app);
 
 const io = socketIo(server, {
   cors: {
-    origin: `https://${url}:3000`,
+    origin: `https://${url}`,
     methods: ["GET", "POST"],
   },
 });
