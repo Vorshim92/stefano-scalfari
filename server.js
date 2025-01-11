@@ -96,7 +96,7 @@ function incrementViewsCounter(io) {
 function setUsersConnected(io, connection) {
   usersConnected = usersConnected + connection;
 
-  io.emit("usersConnectedUpdate", { usersConnected: data.usersConnected });
+  io.emit("usersConnectedUpdate", { usersConnected });
 }
 
 const server = http.createServer(app);
@@ -133,5 +133,5 @@ io.on("connection", (socket) => {
 setInterval(() => incrementStepCounter(io), 750);
 
 server.listen(port, "0.0.0.0", () => {
-  console.log(`Server in ascolto su http://localhost:${port}`);
+  console.log(`Server in ascolto su https://localhost:${port}`);
 });
