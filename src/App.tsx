@@ -41,8 +41,8 @@ function App() {
     });
 
     // Ascolta gli utenti connessi
-    socket.on("usersConnected", (data: { usersConnected: number }) => {
-      setLiveUsers(data.usersConnected);
+    socket.on("usersConnectedUpdate", ({ usersConnected }: { usersConnected: number }) => {
+      setLiveUsers(usersConnected);
     });
 
     // Ascolta gli aggiornamenti del contatore dei passi
