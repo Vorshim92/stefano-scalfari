@@ -68,3 +68,4 @@ export function Vorshim({ animation, ...props }) {
 }
 
 useGLTF.preload("/models/Vorshim.glb");
+useGLTF.preload("/models/Vorshimtexture.glb");

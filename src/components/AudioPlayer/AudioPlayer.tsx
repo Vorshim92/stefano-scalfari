@@ -70,7 +70,7 @@ const AudioPlayer = () => {
       }
     });
     return () => {
-      soundRef.current?.stop(); // L'importanza di mettere un return a useEffect
+      soundRef.current?.stop();
     };
   }, []);
 
