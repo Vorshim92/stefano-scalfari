@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
-    const socket = io(dev ? "http://localhost:3001" : "https://stefanoscalfari.it:3001", {
+    const socket = io(dev ? "http://localhost:3001" : "https://stefanoscalfari.it", {
       path: "/socket.io/",
       secure: !dev,
       transports: ["websocket", "polling"], // Trasporto di fallback
