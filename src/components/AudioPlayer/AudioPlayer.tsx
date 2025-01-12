@@ -94,22 +94,12 @@ const AudioPlayer = () => {
   };
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "10px",
-        left: "10px",
-        zIndex: 999,
-        display: "flex",
-        alignItems: "center",
-        gap: "10px", // spazio tra icona e slider
-        filter: "drop-shadow(0 0 5px #0f0)",
-      }}
-    >
+    <>
       <div
         className={isPlaying ? "icon-container matrix-glitch" : "icon-container"}
         id="playButton"
         style={{
+          display: "flex",
           cursor: "pointer",
           width: "40px",
           height: "40px",
@@ -144,25 +134,24 @@ const AudioPlayer = () => {
             </svg>
           )}
         </div>
+        {/* Slider del volume alla destra dell'icona, visibile solo se in play */}
+        {isPlaying && (
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            style={{
+              cursor: "pointer",
+              width: "100px",
+              background: "transparent",
+            }}
+          />
+        )}
       </div>
-
-      {/* Slider del volume alla destra dell'icona, visibile solo se in play */}
-      {isPlaying && (
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          style={{
-            cursor: "pointer",
-            width: "100px",
-            background: "transparent",
-          }}
-        />
-      )}
-    </div>
+    </>
   );
 };
 

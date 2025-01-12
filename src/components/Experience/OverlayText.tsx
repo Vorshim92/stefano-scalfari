@@ -1,8 +1,7 @@
 import { ReactComponent as MatrixGitHubIcon } from "../../assets/matrix-github-icon.svg";
 import { ReactComponent as MatrixLinkedInIcon } from "../../assets/matrix-linkedin-icon.svg";
-import { ReactComponent as MatrixViewersIcon } from "../../assets/matrix-viewers-icon.svg";
 
-const OverlayText = ({ steps, totalviews, viewers }: { steps: number; totalviews: number; viewers: number }) => {
+const OverlayText = ({ steps, totalviews }: { steps: number; totalviews: number }) => {
   return (
     <>
       {/* OVERLAY TOP */}
@@ -25,10 +24,6 @@ const OverlayText = ({ steps, totalviews, viewers }: { steps: number; totalviews
           zIndex: 10,
         }}
       >
-        <div style={{ filter: "drop-shadow(0 0 5px #0f0)" }}>
-          <MatrixViewersIcon style={{ filter: "drop-shadow(0 0 5px #0f0)", width: "48" }} />
-          <span style={{ color: "#fff", marginLeft: "1rem" }}>{viewers}</span>
-        </div>
         <h3>
           STEPS TAKEN: <span style={{ color: "#fff" }}>{steps}</span>
         </h3>

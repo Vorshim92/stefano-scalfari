@@ -7,11 +7,12 @@ import Experience from "./components/Experience/Experience";
 import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
 import OverlayText from "./components/Experience/OverlayText";
 import MatrixRain from "./components/MatrixRain/MatrixRain";
+import { ReactComponent as MatrixViewersIcon } from "./assets/matrix-viewers-icon.svg";
+
 import "./App.css";
 import { useProgress } from "@react-three/drei";
 const LoadingScreen = () => {
   const { progress, active } = useProgress();
-
   return (
     <div className={`loading-screen ${active ? "active" : "hidden"}`}>
       <div className="loading-screen-content">
@@ -34,7 +35,7 @@ function App() {
 
   useEffect(() => {
     // Connessione al server WebSocket tramite il reverse proxy
-    const socket = io(dev ? "http://localhost:3001" : "https://stefanoscalfari.it", {
+    const socket = io(dev ? "http://192.168.1.10:3001" : "https://stefanoscalfari.it", {
       path: "/socket.io/",
       secure: !dev,
       transports: ["websocket", "polling"], // Trasporto di fallback
@@ -70,8 +71,25 @@ function App() {
     <>
       <LoadingScreen />
       <MatrixRain />
-      <OverlayText steps={steps} totalviews={views} viewers={liveUsers} />
-      <AudioPlayer />
+      <div
+        style={{
+          top: "10px",
+          left: "10px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "10px",
+          marginInline: "10px",
+          filter: "drop-shadow(0 0 5px #0f0)",
+        }}
+      >
+        <AudioPlayer />
+        <div style={{ filter: "drop-shadow(0 0 5px #0f0)" }}>
+          <MatrixViewersIcon style={{ filter: "drop-shadow(0 0 5px #0f0)", width: "48" }} />
+          <span style={{ color: "#fff", marginLeft: "1rem" }}>{liveUsers}</span>
+        </div>
+      </div>
+      <OverlayText steps={steps} totalviews={views} />
       <Experience />
     </>
   );
