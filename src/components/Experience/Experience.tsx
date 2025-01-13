@@ -11,7 +11,7 @@ import DirectLights from "./Lights/DirectLights";
 const Experience = () => {
   return (
     <>
-      <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
+      <div style={{ position: "relative", width: "100vw", height: "100dvh" }}>
         <Canvas shadows camera={{ position: [1, 0, -1] }}>
           <Suspense>
             <ambientLight intensity={0.5} />
